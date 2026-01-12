@@ -1,9 +1,26 @@
-// Mobile Navigation Toggle
+// ====================================
+// ELITE HOME CRAFT - 2026 INTERACTIONS
+// Advanced animations & micro-interactions
+// ====================================
+
+// ========== MOBILE NAVIGATION ==========
 const mobileToggle = document.getElementById('mobile-toggle');
 const nav = document.getElementById('nav');
 
 mobileToggle.addEventListener('click', () => {
     nav.classList.toggle('active');
+
+    // Animate hamburger to X
+    const spans = mobileToggle.querySelectorAll('span');
+    if (nav.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translateY(8px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
+    } else {
+        spans.forEach(span => {
+            span.style.transform = 'rotate(0)';
+        });
+    }
 });
 
 // Close mobile nav when clicking on a link
@@ -13,13 +30,13 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Smooth Scroll for Anchor Links
+// ========== SMOOTH SCROLL FOR ANCHOR LINKS ==========
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            const headerOffset = 80;
+            const headerOffset = 100;
             const elementPosition = target.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -31,7 +48,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Portfolio Before/After Slider
+// ========== PORTFOLIO BEFORE/AFTER SLIDER ==========
 const sliders = document.querySelectorAll('.slider-control');
 
 sliders.forEach(slider => {
@@ -39,12 +56,11 @@ sliders.forEach(slider => {
         const portfolioItem = this.closest('.portfolio-slider');
         const afterImage = portfolioItem.querySelector('.after');
         const value = this.value;
-
         afterImage.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
     });
 });
 
-// Testimonials Carousel
+// ========== TESTIMONIALS CAROUSEL ==========
 const testimonialTrack = document.getElementById('testimonial-track');
 const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
@@ -68,38 +84,34 @@ prevBtn.addEventListener('click', () => {
     updateCarousel();
 });
 
-// Auto-advance testimonials every 5 seconds
+// Auto-advance testimonials
 setInterval(() => {
     currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
     updateCarousel();
 }, 5000);
 
-// Form Submission Handler
-const contactForm = document.getElementById('contact-form');
+// ========== ENHANCED SCROLL REVEAL ANIMATIONS ==========
+const revealElements = () => {
+    const reveals = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .about-text, .about-image-grid');
 
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal', 'active');
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    });
 
-    // Get form data
-    const formData = {
-        name: document.getElementById('name').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        service: document.getElementById('service').value,
-        message: document.getElementById('message').value
-    };
+    document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .about-img, .feature').forEach(el => {
+        el.classList.add('reveal');
+        observer.observe(el);
+    });
+}
 
-    // Here you would typically send the data to a server
-    console.log('Form submitted:', formData);
-
-    // Show success message
-    alert('Thank you for contacting us! We will get back to you shortly.');
-
-    // Reset form
-    contactForm.reset();
-});
-
-// Header Scroll Effect
+// Smooth Scroll Header Effect
 let lastScroll = 0;
 const header = document.querySelector('.header');
 
@@ -107,96 +119,208 @@ window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
     if (currentScroll > 100) {
-        header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+        header.classList.add('scrolled');
     } else {
-        header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+        header.classList.remove('scrolled');
     }
-
-    lastScroll = currentScroll;
 });
 
-// Scroll Animations (Fade in on scroll)
-const observerOptions = {
+// Scroll Reveal Animation
+const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .about-img, .feature');
+
+const revealOnScroll = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('reveal');
+            setTimeout(() => {
+                entry.target.classList.add('active');
+            }, 100);
+        }
+    });
+}, {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
-};
+});
 
-const observer = new IntersectionObserver((entries) => {
+document.addEventListener('DOMContentLoaded', () => {
+    // Observe elements for scroll animations
+    const animateOnScroll = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .feature, .about-img');
+
+    animatedElements.forEach(el => {
+        el.classList.add('reveal');
+        observer.observe(el);
+    });
+
+    // Header scroll effect
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('.header');
+        if (window.pageYOffset > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // Reveal elements on scroll
+    const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .about-img');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal');
+                setTimeout(() => {
+                    entry.target.classList.add('active');
+                }, 100);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+});
+
+// Service Cards 3D Tilt Effect
+document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = (y - rect.height / 2) / 20;
+        const rotateY = (x - rect.width / 2) / 20;
+
+        card.style.transform = `perspective(1000px) rotateX(${-rotateY}deg) rotateY(${rotateX}deg) translateZ(10px)`;
+    });
+
+    card.addEventListener('mouseleave', function() {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+    });
+});
+
+// Smooth scroll reveal animations
+const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .about-img, .contact-item');
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-active');
+        }
+    });
+}, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card').forEach(el => {
+    el.classList.add('reveal');
+    observerReveal.observe(el);
+});
+
+// Parallax effect on scroll
+let ticking = false;
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight);
+            }
+
+            ticking = false;
+        });
+
+        ticking = true;
+    }
+});
+
+// Loading animation
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+
+    // Animate numbers in stats
+    const stats = document.querySelectorAll('.stat-number');
+    stats.forEach(stat => {
+        const target = stat.textContent;
+        const isPercent = target.includes('%');
+        const isPlus = target.includes('+');
+        const number = parseInt(target);
+
+        let current = 0;
+        const increment = number / 50;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= number) {
+                stat.textContent = target;
+                clearInterval(timer);
+            } else {
+                const display = Math.floor(current);
+                stat.textContent = display + (isPlus ? '+' : isPercent ? '%' : '');
+            }
+        }, 30);
+    });
+});
+
+// Smooth reveal on scroll for all sections
+const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .about-paragraph, .contact-item');
+const revealOnScroll = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
         }
     });
-}, observerOptions);
+}, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+});
 
-// Add animation to elements
+revealElements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(40px)';
+    el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    revealOnScroll.observe(el);
+});
+
+// Add loading class for smooth page load
 document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item');
-
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-});
-
-// Phone Number Formatting (Optional)
-const phoneInput = document.getElementById('phone');
-
-phoneInput.addEventListener('input', function(e) {
-    let value = e.target.value.replace(/\D/g, '');
-
-    if (value.length > 0) {
-        if (value.length <= 3) {
-            value = `(${value}`;
-        } else if (value.length <= 6) {
-            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
-        } else {
-            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
-        }
-    }
-
-    e.target.value = value;
-});
-
-// Add loading state to form submission
-contactForm.addEventListener('submit', function(e) {
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-
-    // Simulate sending (in real scenario, this would be an API call)
     setTimeout(() => {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }, 1500);
+        document.body.style.opacity = '1';
+    }, 100);
 });
 
-// Lazy load images (if you add real images later)
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.classList.add('loaded');
-                    observer.unobserve(img);
-                }
-            }
+// Cursor glow effect (optional - modern touch)
+if (window.innerWidth > 1024) {
+    const cursor = document.createElement('div');
+    cursor.className = 'cursor-glow';
+    cursor.style.cssText = `
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 10000;
+        transition: transform 0.2s ease;
+    `;
+    document.body.appendChild(cursor);
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX - 10 + 'px';
+        cursor.style.top = e.clientY - 10 + 'px';
+    });
+
+    document.querySelectorAll('a, button, .service-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'scale(3)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'scale(1)';
         });
     });
-
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
-    });
-}
-
-// Prevent form resubmission on page refresh
-if (window.history.replaceState) {
-    window.history.replaceState(null, null, window.location.href);
 }
