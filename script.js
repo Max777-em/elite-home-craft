@@ -1,326 +1,191 @@
-// ====================================
-// ELITE HOME CRAFT - 2026 INTERACTIONS
-// Advanced animations & micro-interactions
-// ====================================
+// =======================================
+// ELITE HOME CRAFT - Modern JavaScript
+// Clean, Professional Interactions
+// =======================================
 
-// ========== MOBILE NAVIGATION ==========
+// Mobile Navigation Toggle
 const mobileToggle = document.getElementById('mobile-toggle');
 const nav = document.getElementById('nav');
 
-mobileToggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
+if (mobileToggle && nav) {
+    mobileToggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        mobileToggle.classList.toggle('active');
 
-    // Animate hamburger to X
-    const spans = mobileToggle.querySelectorAll('span');
-    if (nav.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translateY(8px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
-    } else {
-        spans.forEach(span => {
-            span.style.transform = 'rotate(0)';
-        });
-    }
-});
-
-// Close mobile nav when clicking on a link
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        nav.classList.remove('active');
+        // Animate hamburger to X
+        const spans = mobileToggle.querySelectorAll('span');
+        if (nav.classList.contains('active')) {
+            spans[0].style.transform = 'rotate(45deg) translateY(10px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translateY(-10px)';
+        } else {
+            spans.forEach(span => {
+                span.style.transform = '';
+                span.style.opacity = '1';
+            });
+        }
     });
-});
 
-// ========== SMOOTH SCROLL FOR ANCHOR LINKS ==========
+    // Close mobile nav when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            nav.classList.remove('active');
+            const spans = mobileToggle.querySelectorAll('span');
+            spans.forEach(span => {
+                span.style.transform = '';
+                span.style.opacity = '1';
+            });
+        });
+    });
+}
+
+// Smooth Scroll for Anchor Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const headerOffset = 100;
-            const elementPosition = target.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        const href = this.getAttribute('href');
+        if (href !== '#' && href.length > 1) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                const headerOffset = 80;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
         }
     });
 });
 
-// ========== PORTFOLIO BEFORE/AFTER SLIDER ==========
-const sliders = document.querySelectorAll('.slider-control');
-
-sliders.forEach(slider => {
-    slider.addEventListener('input', function() {
-        const portfolioItem = this.closest('.portfolio-slider');
-        const afterImage = portfolioItem.querySelector('.after');
-        const value = this.value;
-        afterImage.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
-    });
-});
-
-// ========== TESTIMONIALS CAROUSEL ==========
-const testimonialTrack = document.getElementById('testimonial-track');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
-
-let currentTestimonial = 0;
-const testimonials = document.querySelectorAll('.testimonial-card');
-const totalTestimonials = testimonials.length;
-
-function updateCarousel() {
-    const offset = -currentTestimonial * 100;
-    testimonialTrack.style.transform = `translateX(${offset}%)`;
-}
-
-nextBtn.addEventListener('click', () => {
-    currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
-    updateCarousel();
-});
-
-prevBtn.addEventListener('click', () => {
-    currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
-    updateCarousel();
-});
-
-// Auto-advance testimonials
-setInterval(() => {
-    currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
-    updateCarousel();
-}, 5000);
-
-// ========== ENHANCED SCROLL REVEAL ANIMATIONS ==========
-const revealElements = () => {
-    const reveals = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .about-text, .about-image-grid');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('reveal', 'active');
-            }
-        });
-    }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .about-img, .feature').forEach(el => {
-        el.classList.add('reveal');
-        observer.observe(el);
-    });
-}
-
-// Smooth Scroll Header Effect
+// Header Scroll Effect
+const header = document.getElementById('header');
 let lastScroll = 0;
-const header = document.querySelector('.header');
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
-    if (currentScroll > 100) {
+    if (currentScroll > 50) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
     }
+
+    lastScroll = currentScroll;
 });
 
 // Scroll Reveal Animation
-const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .about-img, .feature');
-
-const revealOnScroll = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('reveal');
-            setTimeout(() => {
-                entry.target.classList.add('active');
-            }, 100);
-        }
-    });
-}, {
+const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
-});
+};
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Observe elements for scroll animations
-    const animateOnScroll = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .feature, .about-img');
-
-    animatedElements.forEach(el => {
-        el.classList.add('reveal');
-        observer.observe(el);
-    });
-
-    // Header scroll effect
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('.header');
-        if (window.pageYOffset > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-    // Reveal elements on scroll
-    const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .about-img');
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('reveal');
-                setTimeout(() => {
-                    entry.target.classList.add('active');
-                }, 100);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    revealElements.forEach(el => observer.observe(el));
-});
-
-// Service Cards 3D Tilt Effect
-document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = (y - rect.height / 2) / 20;
-        const rotateY = (x - rect.width / 2) / 20;
-
-        card.style.transform = `perspective(1000px) rotateX(${-rotateY}deg) rotateY(${rotateX}deg) translateZ(10px)`;
-    });
-
-    card.addEventListener('mouseleave', function() {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-    });
-});
-
-// Smooth scroll reveal animations
-const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .about-img, .contact-item');
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('reveal-active');
-        }
-    });
-}, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-});
-
-document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card').forEach(el => {
-    el.classList.add('reveal');
-    observerReveal.observe(el);
-});
-
-// Parallax effect on scroll
-let ticking = false;
-
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero-content');
-
-            if (hero && scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-                hero.style.opacity = 1 - (scrolled / window.innerHeight);
-            }
-
-            ticking = false;
-        });
-
-        ticking = true;
-    }
-});
-
-// Loading animation
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-
-    // Animate numbers in stats
-    const stats = document.querySelectorAll('.stat-number');
-    stats.forEach(stat => {
-        const target = stat.textContent;
-        const isPercent = target.includes('%');
-        const isPlus = target.includes('+');
-        const number = parseInt(target);
-
-        let current = 0;
-        const increment = number / 50;
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= number) {
-                stat.textContent = target;
-                clearInterval(timer);
-            } else {
-                const display = Math.floor(current);
-                stat.textContent = display + (isPlus ? '+' : isPercent ? '%' : '');
-            }
-        }, 30);
-    });
-});
-
-// Smooth reveal on scroll for all sections
-const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .about-paragraph, .contact-item');
-const revealOnScroll = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
         }
     });
-}, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-});
+}, observerOptions);
 
-revealElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(40px)';
-    el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-    revealOnScroll.observe(el);
-});
-
-// Add loading class for smooth page load
+// Add fade-in animation to elements on page load
 document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
+    const animatedElements = document.querySelectorAll(
+        '.service-card, .portfolio-card, .testimonial-card, .stats-card, .contact-item'
+    );
+
+    animatedElements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(el);
+    });
 });
 
-// Cursor glow effect (optional - modern touch)
-if (window.innerWidth > 1024) {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor-glow';
-    cursor.style.cssText = `
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
-        pointer-events: none;
-        z-index: 10000;
-        transition: transform 0.2s ease;
-    `;
-    document.body.appendChild(cursor);
+// Contact Form Handling
+const contactForm = document.getElementById('contact-form');
 
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX - 10 + 'px';
-        cursor.style.top = e.clientY - 10 + 'px';
-    });
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-    document.querySelectorAll('a, button, .service-card').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'scale(3)';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'scale(1)';
-        });
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+
+        // Get form data
+        const formData = {
+            name: document.getElementById('name').value,
+            phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
+            service: document.getElementById('service').value,
+            message: document.getElementById('message').value
+        };
+
+        // Show loading state
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        // Simulate sending (replace with actual API call)
+        setTimeout(() => {
+            console.log('Form submitted:', formData);
+            alert('Thank you for contacting us! We will get back to you shortly.');
+
+            // Reset form
+            contactForm.reset();
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }, 1500);
     });
 }
+
+// Phone Number Formatting
+const phoneInput = document.getElementById('phone');
+
+if (phoneInput) {
+    phoneInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+
+        if (value.length > 0) {
+            if (value.length <= 3) {
+                value = `(${value}`;
+            } else if (value.length <= 6) {
+                value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+            } else {
+                value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+            }
+        }
+
+        e.target.value = value;
+    });
+}
+
+// Prevent form resubmission on page refresh
+if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+}
+
+// Add active state to current nav section
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.pageYOffset >= sectionTop - 100) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
+});
