@@ -1,0 +1,12 @@
+{
+  "name": "elite-home-craft",
+  "version": "1.0.0",
+  "description": "Elite Home Craft - Professional home repair and renovation services",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": ["home", "repair", "renovation", "construction"],
+  "author": "",
+  "license": "MIT"
+}
