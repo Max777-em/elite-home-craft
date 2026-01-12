@@ -601,6 +601,22 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
     border-radius: 12px;
     border: 1px solid var(--border);
     transition: var(--transition);
+    text-align: center;
+}
+
+.testimonial-avatar {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.testimonial-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
 .testimonial-card:hover {
@@ -613,6 +629,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
     gap: 4px;
     margin-bottom: 24px;
     color: #fbbf24;
+    justify-content: center;
 }
 
 .testimonial-text {
