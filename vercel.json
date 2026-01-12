@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "elite-home-craft",
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    }
+  ]
+}
