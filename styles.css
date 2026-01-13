@@ -548,6 +548,145 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
 }
 
 /* ===========================
+   ABOUT US SECTION
+   =========================== */
+.about-us {
+    padding: var(--section-padding) 0;
+    background: var(--bg-white);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-image-section {
+    position: relative;
+}
+
+.about-image-wrapper {
+    position: relative;
+}
+
+.about-main-image {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.about-experience-badge {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    background: rgba(59, 130, 246, 0.95);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    padding: 32px 40px;
+    border-radius: 16px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.badge-number {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.badge-text {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.about-content {
+    max-width: 600px;
+}
+
+.about-text {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.about-text strong {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.about-values {
+    margin: 48px 0;
+    display: grid;
+    gap: 32px;
+}
+
+.value-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.value-icon {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+}
+
+.value-item h3 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.value-item p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.about-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 968px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .about-main-image {
+        height: 500px;
+    }
+
+    .about-experience-badge {
+        bottom: 20px;
+        right: 20px;
+        padding: 24px 32px;
+    }
+
+    .badge-number {
+        font-size: 2.5rem;
+    }
+}
+
+/* ===========================
    WHY CHOOSE US
    =========================== */
 .why-choose {
