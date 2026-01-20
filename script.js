@@ -105,11 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Contact Form Handling
+// Contact Form Handling with Email + WhatsApp
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const submitBtn = contactForm.querySelector('button[type="submit"]');
@@ -128,16 +128,69 @@ if (contactForm) {
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
 
-        // Simulate sending (replace with actual API call)
-        setTimeout(() => {
-            console.log('Form submitted:', formData);
-            alert('Thank you for contacting us! We will get back to you shortly.');
+        try {
+            // Send to Web3Forms for email notification
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    access_key: 'YOUR_ACCESS_KEY_HERE',
+                    subject: 'New Quote Request - Patch & Mate Repairs',
+                    from_name: 'Patch & Mate Website',
+                    name: formData.name,
+                    phone: formData.phone,
+                    email: formData.email,
+                    service: formData.service,
+                    message: formData.message
+                })
+            });
 
-            // Reset form
-            contactForm.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 1500);
+            const result = await response.json();
+
+            if (result.success) {
+                // Create WhatsApp message
+                const whatsappMessage = `🏠 *New Quote Request*%0A%0A` +
+                    `*Name:* ${formData.name}%0A` +
+                    `*Phone:* ${formData.phone}%0A` +
+                    `*Email:* ${formData.email}%0A` +
+                    `*Service:* ${formData.service || 'Not specified'}%0A` +
+                    `*Message:* ${formData.message || 'No message'}`;
+
+                // WhatsApp number (without + or spaces)
+                const whatsappNumber = '16467509028';
+
+                // Open WhatsApp in new tab to send notification
+                window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+
+                // Show success message
+                alert('Thank you for your quote request! We will contact you shortly.');
+
+                // Reset form
+                contactForm.reset();
+            } else {
+                throw new Error('Form submission failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+
+            // Fallback: Open WhatsApp directly if email fails
+            const whatsappMessage = `🏠 *New Quote Request*%0A%0A` +
+                `*Name:* ${formData.name}%0A` +
+                `*Phone:* ${formData.phone}%0A` +
+                `*Email:* ${formData.email}%0A` +
+                `*Service:* ${formData.service || 'Not specified'}%0A` +
+                `*Message:* ${formData.message || 'No message'}`;
+
+            const whatsappNumber = '16467509028';
+            window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+
+            alert('Your request is being sent via WhatsApp. Please click Send in WhatsApp to complete.');
+        }
+
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
     });
 }
 
