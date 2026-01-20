@@ -493,6 +493,28 @@
                         <input type="hidden" name="subject" value="New Quote Request - Patch & Mate Repairs">
                         <input type="hidden" name="from_name" value="Patch & Mate Website">
                         <input type="hidden" name="redirect" value="https://patchmate.help/#contact">
+                        <!-- Auto-reply to client -->
+                        <input type="hidden" name="autoreply" value="true">
+                        <input type="hidden" name="autoreply_from" value="Patch & Mate Repairs">
+                        <input type="hidden" name="autoreply_subject" value="Thank You for Your Quote Request - Patch & Mate Repairs">
+                        <input type="hidden" name="autoreply_message" value="Dear {{name}},
+
+Thank you for contacting Patch & Mate Repairs!
+
+We have received your quote request and our team will review it promptly. You can expect a response from us within 24 hours.
+
+Here's a summary of your request:
+- Service: {{service}}
+- Message: {{message}}
+
+If you have any urgent questions, feel free to call us at (646) 750-9028.
+
+Best regards,
+Patch & Mate Repairs
+Professional Home Renovation & Repair Services
+New York, NY
+
+Website: https://patchmate.help">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Full Name</label>
