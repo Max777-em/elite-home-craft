@@ -203,7 +203,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
 }
 
 .logo-image {
-    height: 140px;
+    height: 170px;
     width: auto;
     object-fit: contain;
 }
@@ -1022,7 +1022,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
 }
 
 .footer-logo .logo-image {
-    height: 160px;
+    height: 190px;
     width: auto;
     object-fit: contain;
 }
