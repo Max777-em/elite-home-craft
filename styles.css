@@ -202,6 +202,12 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
     color: var(--accent);
 }
 
+.logo-image {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
 .nav {
     display: flex;
     align-items: center;
@@ -1013,6 +1019,12 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
     font-weight: 700;
     font-size: 20px;
     margin-bottom: 16px;
+}
+
+.footer-logo .logo-image {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
 }
 
 .footer-column h4 {
