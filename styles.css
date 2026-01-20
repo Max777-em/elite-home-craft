@@ -1067,9 +1067,19 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
 /* ===========================
    RESPONSIVE DESIGN
    =========================== */
+
+/* Tablet Landscape (1024px and below) */
 @media (max-width: 1024px) {
     :root {
         --section-padding: 80px;
+    }
+
+    .logo-image {
+        height: 130px;
+    }
+
+    .footer-logo .logo-image {
+        height: 150px;
     }
 
     .why-choose-content,
@@ -1084,61 +1094,141 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
     }
 }
 
+/* Tablet Portrait (768px and below) */
 @media (max-width: 768px) {
     :root {
         --section-padding: 60px;
+        --container-padding: 20px;
+    }
+
+    .logo-image {
+        height: 100px;
+    }
+
+    .footer-logo .logo-image {
+        height: 120px;
     }
 
     .header-content {
-        padding: 16px 0;
+        padding: 12px 0;
     }
 
     .nav {
         position: fixed;
-        top: 73px;
+        top: 0;
         left: 0;
         right: 0;
+        bottom: 0;
         flex-direction: column;
         background: white;
-        padding: 32px 24px;
+        padding: 120px 24px 32px;
         box-shadow: var(--shadow-lg);
         transform: translateX(-100%);
         transition: var(--transition);
         gap: 24px;
+        z-index: 999;
     }
 
     .nav.active {
         transform: translateX(0);
     }
 
+    .nav-link {
+        font-size: 18px;
+        padding: 12px 0;
+    }
+
+    .nav-link.nav-cta {
+        margin-top: 16px;
+        text-align: center;
+        padding: 16px 24px;
+    }
+
     .mobile-toggle {
         display: flex;
+        z-index: 1001;
     }
 
     .hero {
-        padding: 140px 0 80px;
+        padding: 160px 0 80px;
+    }
+
+    .hero-title {
+        font-size: clamp(1.75rem, 6vw, 2.5rem);
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
     }
 
     .hero-stats {
         flex-direction: column;
-        gap: 32px;
+        gap: 24px;
+        padding: 24px;
     }
 
     .stat-divider {
         display: none;
     }
 
+    .stat-number {
+        font-size: 2rem;
+    }
+
     .hero-cta {
         flex-direction: column;
+        gap: 12px;
     }
 
     .btn {
         width: 100%;
+        padding: 16px 24px;
     }
 
-    .services-grid,
+    .section-header {
+        margin-bottom: 40px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .service-card {
+        padding: 28px 24px;
+    }
+
     .testimonials-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .testimonial-card {
+        padding: 28px 24px;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-main-image {
+        height: 350px;
+    }
+
+    .about-experience-badge {
+        bottom: 16px;
+        right: 16px;
+        padding: 20px 24px;
+    }
+
+    .badge-number {
+        font-size: 2rem;
+    }
+
+    .value-item {
+        flex-direction: column;
+        gap: 12px;
     }
 
     .form-row {
@@ -1146,27 +1236,207 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
     }
 
     .contact-form-wrapper {
-        padding: 32px 24px;
+        padding: 28px 20px;
+    }
+
+    .contact-grid {
+        gap: 40px;
     }
 
     .footer-content {
         grid-template-columns: 1fr;
         gap: 32px;
+        text-align: center;
+    }
+
+    .footer-logo {
+        justify-content: center;
+    }
+
+    .footer-links {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .footer-column {
+        text-align: center;
+    }
+
+    .footer-column ul {
+        align-items: center;
     }
 }
 
+/* Mobile Large (640px and below) */
+@media (max-width: 640px) {
+    .logo-image {
+        height: 80px;
+    }
+
+    .footer-logo .logo-image {
+        height: 100px;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-image {
+        height: 250px;
+    }
+
+    .stats-card {
+        padding: 28px 24px;
+    }
+
+    .stats-number {
+        font-size: 2.5rem;
+    }
+
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+/* Mobile Small (480px and below) */
 @media (max-width: 480px) {
+    :root {
+        --container-padding: 16px;
+    }
+
+    .logo-image {
+        height: 65px;
+    }
+
+    .footer-logo .logo-image {
+        height: 85px;
+    }
+
+    .hero {
+        padding: 140px 0 60px;
+    }
+
+    .hero-badge {
+        font-size: 12px;
+        padding: 6px 16px;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
     .hero-stats {
-        padding: 24px;
+        padding: 20px;
     }
 
     .stat-number {
-        font-size: 2rem;
+        font-size: 1.75rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .btn {
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+
+    .section-label {
+        font-size: 12px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
     }
 
     .service-card,
     .testimonial-card {
-        padding: 32px 24px;
+        padding: 24px 20px;
+    }
+
+    .service-number {
+        font-size: 2rem;
+    }
+
+    .service-title {
+        font-size: 1.25rem;
+    }
+
+    .contact-form-wrapper {
+        padding: 24px 16px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 14px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .about-main-image {
+        height: 280px;
+    }
+
+    .about-experience-badge {
+        padding: 16px 20px;
+    }
+
+    .badge-number {
+        font-size: 1.75rem;
+    }
+
+    .badge-text {
+        font-size: 12px;
+    }
+
+    .testimonial-avatar img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .value-icon {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+    .logo-image {
+        height: 55px;
+    }
+
+    .footer-logo .logo-image {
+        height: 70px;
+    }
+
+    .hero-title {
+        font-size: 1.35rem;
+    }
+
+    h2 {
+        font-size: 1.35rem;
+    }
+
+    .btn {
+        padding: 12px 16px;
+        font-size: 14px;
     }
 }
 
