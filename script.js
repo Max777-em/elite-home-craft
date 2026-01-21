@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Contact Form Handling with Email + WhatsApp
+// Contact Form Handling - Email Only
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
@@ -150,20 +150,6 @@ if (contactForm) {
             const result = await response.json();
 
             if (result.success) {
-                // Create WhatsApp message
-                const whatsappMessage = `🏠 *New Quote Request*%0A%0A` +
-                    `*Name:* ${formData.name}%0A` +
-                    `*Phone:* ${formData.phone}%0A` +
-                    `*Email:* ${formData.email}%0A` +
-                    `*Service:* ${formData.service || 'Not specified'}%0A` +
-                    `*Message:* ${formData.message || 'No message'}`;
-
-                // WhatsApp number (without + or spaces)
-                const whatsappNumber = '16467509028';
-
-                // Open WhatsApp in new tab to send notification
-                window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
-
                 // Show success message
                 alert('Thank you for your quote request! We will contact you shortly.');
 
@@ -174,19 +160,7 @@ if (contactForm) {
             }
         } catch (error) {
             console.error('Error:', error);
-
-            // Fallback: Open WhatsApp directly if email fails
-            const whatsappMessage = `🏠 *New Quote Request*%0A%0A` +
-                `*Name:* ${formData.name}%0A` +
-                `*Phone:* ${formData.phone}%0A` +
-                `*Email:* ${formData.email}%0A` +
-                `*Service:* ${formData.service || 'Not specified'}%0A` +
-                `*Message:* ${formData.message || 'No message'}`;
-
-            const whatsappNumber = '16467509028';
-            window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
-
-            alert('Your request is being sent via WhatsApp. Please click Send in WhatsApp to complete.');
+            alert('Sorry, there was an error sending your message. Please try again.');
         }
 
         submitBtn.textContent = originalText;
